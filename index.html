@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>When did Arsenal Last Win</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #090909, #151515);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2.8rem;
+    }
+
+    .subtitle {
+      margin: 0 0 36px;
+      color: #bdbdbd;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .label {
+      color: #aaa;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .value {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ff5b5b;
+    }
+
+    .big {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #ff5b5b;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>When did Arsenal Last Win</h1>
+    <p class="subtitle">Live tracking of ongoing football heritage discussions.</p>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="title">Time Since Last Real Trophy</div>
+        <div class="label">FA Cup — 1 August 2020</div>
+        <div class="value" id="faCupTimer"></div>
+      </div>
+
+      <div class="card">
+        <div class="title">Time Since Last Premier League Title</div>
+        <div class="label">15 May 2004</div>
+        <div class="value" id="plTimer"></div>
+      </div>
+
+      <div class="card">
+        <div class="title">Player Transfer Spend Under Arteta</div>
+        <div class="label">Arrival fees since 22 Dec 2019</div>
+        <div class="big" id="spendCounter">€0</div>
+      </div>
+
+      <div class="card">
+        <div class="title">Bottle Job Counter</div>
+        <div class="label">Title races & major competition collapses</div>
+        <div class="big">3</div>
+      </div>
+
+      <div class="card">
+        <div class="title">Champions League Titles</div>
+        <div class="label">European heritage check</div>
+        <div class="big">0</div>
+      </div>
+
+      <div class="card">
+        <div class="title">Current Status</div>
+        <div class="label">System summary</div>
+        <div class="value">Heavy spending. Minimal silverware. Endless debates.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const faCupDate = new Date("2020-08-01T19:00:00");
+    const plDate = new Date("2004-05-15T17:00:00");
+    const spend = 899000000;
+
+    function getTime(start) {
+      const now = new Date();
+      let diff = now - start;
+
+      const sec = 1000;
+      const min = sec * 60;
+      const hr = min * 60;
+      const day = hr * 24;
+
+      const y = Math.floor(diff / (day * 365.25));
+      diff -= y * day * 365.25;
+
+      const m = Math.floor(diff / (day * 30.44));
+      diff -= m * day * 30.44;
+
+      const d = Math.floor(diff / day);
+      diff -= d * day;
+
+      const h = Math.floor(diff / hr);
+      diff -= h * hr;
+
+      const mins = Math.floor(diff / min);
+      diff -= mins * min;
+
+      const s = Math.floor(diff / sec);
+
+      return `${y}y ${m}m ${d}d ${h}h ${mins}m ${s}s`;
+    }
+
+    function update() {
+      document.getElementById("faCupTimer").textContent = getTime(faCupDate);
+      document.getElementById("plTimer").textContent = getTime(plDate);
+    }
+
+    function animateSpend(target) {
+      const el = document.getElementById("spendCounter");
+      const duration = 2000;
+      const startTime = performance.now();
+
+      function step(t) {
+        const progress = Math.min((t - startTime) / duration, 1);
+        const value = Math.floor(progress * target);
+        el.textContent = "€" + value.toLocaleString();
+
+        if (progress < 1) requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    update();
+    setInterval(update, 1000);
+    animateSpend(spend);
+  </script>
+
+</body>
+</html>
